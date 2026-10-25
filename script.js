@@ -1,0 +1,38 @@
+const CFG={name:"Steven Saeed",email:"stevensaeed10@gmail.com",phone:"+20 127 904 2510",gh:"https://github.com/steven1tech",li:"https://linkedin.com/in/steven-saeed-075b57387",formEndpoint:"" /* e.g. a Formspree URL */,cv:"Steven_Saeed_CV.pdf"};
+const stats=[["2026","DEPI & ITI Training"],["ASP.NET Core","Primary Development Direction"],["Full-Stack","Web Development Focus"],["CS","Computer Science Student"]];
+const core=["C#",".NET","ASP.NET Core","SQL Server","EF Core"];
+const tech={"Backend & Languages":["C#",".NET","ASP.NET Core","Node.js","Express.js","PHP","Python","C++","Java"],"Web & APIs":["HTML5","CSS3","JavaScript","Bootstrap","DOM Manipulation","Responsive Design","REST APIs","Socket.IO"],"Databases & Data":["SQL Server","Oracle","MongoDB","ADO.NET","Entity Framework","EF Core","LINQ","Relational DB Design"],"Tools":["Git","GitHub","Postman","SSMS","Unity"],"Core Concepts":["OOP","Data Structures & Algorithms","Problem Solving","Clean Architecture","Systems Analysis","Debugging"]};
+const main=new Set(["C#",".NET","ASP.NET Core","SQL Server","EF Core","Entity Framework"]);
+const exp=[["Full-Stack .NET Developer Trainee","Digital Egypt Pioneers Initiative (DEPI)","2026","Built full-stack web applications using .NET technologies and SQL database integration. Applied OOP, REST APIs, database design, debugging, and clean-code practices. Worked with frontend technologies to create responsive, user-friendly interfaces."],["Full-Stack .NET Developer Trainee","Information Technology Institute (ITI)","2026","Strengthened practical skills in C#, .NET, web development, databases, and software engineering through hands-on training."],["Junior Developer & Software Projects","Academic & Personal Projects","2024–2026","Designed hospital and restaurant databases using SQL Server and Oracle. Developed desktop, web, backend, and game projects using C#, Java, JavaScript, PHP, Python, Node.js, and Unity. Practiced database integration, CRUD operations, APIs, real-time communication, debugging, and Git/GitHub."]];
+const projects=[ // set githubUrl to a real repo link; "#" = not yet linked
+{t:"Game Store",c:"Full-Stack .NET Web Application",f:[".net",".net-web"],big:1,d:"Full-stack web application built with .NET, featuring database integration, authentication, CRUD operations, and a responsive user interface.",tech:[".NET","ASP.NET Core","C#","SQL","Entity Framework","HTML","CSS","JavaScript","Bootstrap"],h:"Authentication • CRUD • Database Integration • Responsive UI",githubUrl:"#"},
+{t:"XO Multiplayer",c:"Real-Time Multiplayer Web Application",f:["Backend"],d:"A multiplayer Tic-Tac-Toe project built with Node.js, Express.js, and Socket.IO, exploring real-time communication between players.",tech:["Node.js","Express.js","Socket.IO","JavaScript"],h:"Multiplayer • Real-Time Communication • Backend",githubUrl:"#"},
+{t:"Hospital Management Desktop App",c:"C# Desktop Application",f:[".NET",".NET-d"],d:"C# desktop application for managing hospital-related data and operations.",tech:["C#","Desktop Development","Database concepts"],githubUrl:"#"},
+{t:"Hospital & Restaurant Databases",c:"Database Projects",f:["Database"],d:"Academic database projects using SQL Server and Oracle, including relational database design, queries, stored procedures, and triggers.",tech:["SQL Server","Oracle","SQL","Database Design","Stored Procedures","Triggers"],githubUrl:"#"},
+{t:"Java Ping Pong & Frontend Projects",c:"Academic Projects",f:["Frontend"],d:"Academic projects demonstrating Java game programming and responsive frontend development using HTML, CSS, JavaScript, and Bootstrap.",tech:["Java","HTML","CSS","JavaScript","Bootstrap"],githubUrl:"#"},
+{t:"Rocket Landing",c:"Unity 2D Game",f:["Unity"],d:"2D Unity game developed with C#, implementing player movement, landing mechanics, game logic, and interactive systems.",tech:["Unity","C#","2D Game Development"],githubUrl:"#"}];
+projects[0].f=[".NET"];projects[2].f=[".NET"];
+const cw=["Software Engineering","Data Structures & Algorithms","Database Management Systems","SQL / Oracle","Systems Analysis & Design","Object-Oriented Programming"];
+const certs=[["Full-Stack .NET Development Track","Digital Egypt Pioneers Initiative (DEPI)","2026"],["Full-Stack .NET Development Training","Information Technology Institute (ITI)","2026"],["Full-Stack Node.js Development Training","Bright Future","2025"],["Unity 2D Game Development","Code Monkey · Additional Learning",""]];
+const $=s=>document.querySelector(s),E=s=>s.replace(/&/g,"&amp;");
+const bd=a=>a.map(x=>`<span class="bd${main.has(x)?" m":""}">${E(x)}</span>`).join("");
+document.querySelectorAll("[data-s]").forEach(a=>{a.href=CFG[a.dataset.s];a.target="_blank";a.rel="noopener"});
+document.querySelectorAll("[data-m]").forEach(a=>{a.href="mailto:"+CFG.email;a.textContent=a.textContent||CFG.email});
+$("#ph").textContent=CFG.phone;
+$("#stats").innerHTML=stats.map(s=>`<div class="c st"><b>${s[0]}</b><span>${s[1]}</span></div>`).join("");
+$("#core").innerHTML=bd(core);
+$("#tech").innerHTML=Object.entries(tech).map(([k,v])=>`<div class="c"><h3 style="font-size:16px">${E(k)}</h3>${bd(v)}</div>`).join("");
+$("#exp").innerHTML=exp.map(e=>`<div class="c"><div class="yr">${e[2]}</div><h3 style="font-size:18px">${e[0]}</h3><div class="mu"><b>${E(e[1])}</b></div><p class="mu">${e[3]}</p></div>`).join("");
+$("#pj").innerHTML=projects.map(p=>`<article class="c pc${p.big?" big":""}" data-f="${p.f.join(",")}"><div class="tag">${p.c}${p.big?" · Primary project":""}</div><h3 style="margin:6px 0">${E(p.t)}</h3><p class="mu">${p.d}</p><div style="margin-top:10px">${bd(p.tech)}</div>${p.h?`<div class="hl">${p.h}</div>`:""}<a class="btn${p.githubUrl==="#"?" dis":""}" ${p.githubUrl==="#"?'aria-disabled="true" title="Link coming soon"':`href="${p.githubUrl}" target="_blank" rel="noopener"`}>${p.githubUrl==="#"?"Link coming soon":"View Project <span>→</span>"}</a></article>`).join("");
+const fs=["All",".NET","Backend","Database","Frontend","Unity"];
+$("#fl").innerHTML=fs.map((f,i)=>`<button aria-pressed="${!i}">${f}</button>`).join("");
+$("#fl").onclick=e=>{const b=e.target.closest("button");if(!b)return;document.querySelectorAll("#fl button").forEach(x=>x.setAttribute("aria-pressed",x===b));document.querySelectorAll(".pc").forEach(c=>c.hidden=b.textContent!=="All"&&!c.dataset.f.split(",").includes(b.textContent))};
+$("#cw").innerHTML="<div style='margin-top:12px'>"+cw.map(x=>`<span class="bd">${x}</span>`).join("")+"</div>";
+$("#cert").innerHTML=certs.map(c=>`<div class="c"><h3 style="font-size:16px">${c[0]}</h3><p class="mu">${c[1]}</p><div class="yr">${c[2]}</div></div>`).join("");
+$("#mb").onclick=()=>{const o=$("#lk").classList.toggle("o");$("#mb").setAttribute("aria-expanded",o)};
+$("#lk").onclick=()=>$("#lk").classList.remove("o");
+// CV download (published pages need the downloads capability)
+document.querySelectorAll("[data-cv]").forEach(b=>b.onclick=()=>{const a=document.createElement("a");a.href=CFG.cv;a.download="Steven_Saeed_CV.pdf";document.body.appendChild(a);a.click();a.remove()});
+$("#f").onsubmit=async e=>{e.preventDefault();const s=$("#fs");if(!CFG.formEndpoint){s.textContent="This form isn't connected to an email service yet. Please email "+CFG.email+" directly.";return}
+try{const r=await fetch(CFG.formEndpoint,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({name:$("#n").value,email:$("#e").value,message:$("#m").value})});s.textContent=r.ok?"Thanks — message sent.":"Something went wrong."}catch{s.textContent="Something went wrong."}};
+const io=new IntersectionObserver(es=>es.forEach(x=>x.isIntersecting&&x.target.classList.add("on")),{threshold:.08});document.querySelectorAll(".rv").forEach(x=>io.observe(x));
